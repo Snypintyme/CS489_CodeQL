@@ -10,7 +10,16 @@ int main(int argc, char** argv) {
         fprintf(stderr, "Please provide the address of a file as an input.\n");
         return -1;
     }
-    char cmd[BUFSIZE] = "wc -c < ";
-    strcat(cmd, argv[1]);
-    system(cmd);
+
+    FILE* fp = fopen(argv[1], "r"); 
+  
+    if (fp == NULL) { 
+        printf("File Not Found!\n"); 
+        return -1; 
+    } 
+  
+    fseek(fp, 0L, SEEK_END); 
+    long int res = ftell(fp); 
+    fclose(fp); 
+    printf("%ld\n", res);
 }
